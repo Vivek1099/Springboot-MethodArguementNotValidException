@@ -4,12 +4,10 @@ import Sringboot_MethodArguementNotValidException.Entity.User;
 import Sringboot_MethodArguementNotValidException.Repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UserController
@@ -36,4 +34,35 @@ public class UserController
         return userRepository.findAll();
     }
 
+    @GetMapping("/byid/{userId}")
+    public Optional<User> ById(@Valid @PathVariable int userId)
+    {
+        return userRepository.findById(userId);
+    }
+
+    @GetMapping("/byname/{name}")
+    public List<User> ByName(@Valid @PathVariable String name)
+    {
+        return userRepository.findByName(name);
+    }
+
+    @PutMapping("/update/{userId}")
+    public User updateById(@Valid @PathVariable int userId, @RequestBody User user)
+    {
+        User u = userRepository.findById(userId).get();
+        u.setName(user.getName());
+        u.setAge(user.getAge());
+        u.setEmail(user.getEmail());
+        u.setGender(user.getGender());
+        u.setNationality(user.getNationality());
+        u.setMobile(user.getMobile());
+        return userRepository.save(user);
+    }
+
+    @DeleteMapping("/delete/{userId}")
+    public String deleteById(@Valid @PathVariable int userId)
+    {
+        userRepository.deleteById(userId);
+        return "user data deleted";
+    }
 }
