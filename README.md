@@ -75,7 +75,7 @@ The application will start on http://localhost:8080.
     "nationality": "Indian"
   }
 
-3. Get All Employee Data
+3. Get All Users Data
 - URL: `/show`
 - Method: GET
 - Description: Returns a list of all users data.
@@ -93,26 +93,48 @@ The application will start on http://localhost:8080.
   }
   ]
   
-4. Retreving data using Id.
+4. Retreving Data Using name and userId.
 - URL: `/byid/{userId}` or `byname{name}`
 - Method: GET
 - Description: Returns user data of specific id.
 
-5. Validation
-- name: Must not be empty, and must be at least 4 characters long, should not contain any special characters.
-- phoneno: Must start form no between 6 to 9(as per Indian Phone no) and must be of 10 digits and must be unique.
+5. Updating Users data
+- URL: `/update/{userId}`
+- Method: PUT
+- Description: Updates all fields of data.
+
+6. Deletion of User data
+- URL: `/delete/{userId}`
+- Method: DELETE
+- Description: Delete user data of provided id.
+
+7. Validation
+- Name: It should not be empty.
+- Email: It should not be empty and should be proper email.
+- Mobile: It should not be empty and should be a proper mobile number.
+- Gender: It should not be empty.
+- Age: It should be not empty and the age should be between 18 to 50.
+- Nationality: It should not be empty.
+
 
 ## Exception Handling
-The application includes a global exception handler that captures `DataIntegrityViolationException` and returns a meaningful error response.
+The application includes a global exception handler that captures `MethodArguementNotValidException` and returns a meaningful error response.
 ```sh
-Phone Number Already Exist
+{
+  "gender": "Please enter your Gender",
+  "nationality": "Please enter your Nationality",
+  "mobile": "Enter proper 10 digit number",
+  "name": "username should not be empty",
+  "email": "must be a well-formed email address",
+  "age": "must be greater than or equal to 18"
+}
 ```
 
 ## Project Structure
 
-- Employee: Entity class representing a user profile.
-- EmployeeRepository: Repository interface for CRUD operations on user profiles.
-- EmployeeController: REST controller for handling user-related requests.
+- User: Entity class representing a user profile.
+- UserRepository: Repository interface for CRUD operations on user profiles.
+- UserController: REST controller for handling user-related requests.
 - GlobalExceptionHandler: Global exception handler for validation errors.
 
 
