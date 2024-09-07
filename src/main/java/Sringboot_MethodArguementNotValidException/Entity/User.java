@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 @Entity
-@Table(name = "user")
+@Table(name = "userlist")
 public class User
 {
     @Id
