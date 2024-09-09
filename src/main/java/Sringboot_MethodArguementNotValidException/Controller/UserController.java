@@ -34,13 +34,13 @@ public class UserController
         return userRepository.findAll();
     }
 
-    @GetMapping("/byid/{userId}")
+    @GetMapping("/id/{userId}")
     public Optional<User> ById(@Valid @PathVariable int userId)
     {
         return userRepository.findById(userId);
     }
 
-    @GetMapping("/byname/{name}")
+    @GetMapping("/name/{name}")
     public List<User> ByName(@Valid @PathVariable String name)
     {
         return userRepository.findByName(name);
